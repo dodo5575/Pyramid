@@ -46,6 +46,9 @@ rect:first-child {
 
 </style>
 <body>
+
+<h1>Population pyramid of Taiwan</h1>
+
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
@@ -64,7 +67,7 @@ var yAxis = d3.svg.axis()
     .scale(y)
     .orient("right")
     .tickSize(-width)
-    .tickFormat(function(d) { return Math.round(d / 1e6) + "M"; });
+    .tickFormat(function(d) { return Math.round(d / 1e3) + "K"; });
 
 // An SVG element with a bottom-right origin.
 var svg = d3.select("body").append("svg")
@@ -81,9 +84,9 @@ var birthyears = svg.append("g")
 var title = svg.append("text")
     .attr("class", "title")
     .attr("dy", ".71em")
-    .text(2000);
+    .text(2011);
 
-d3.csv("population.csv", function(error, data) {
+d3.csv("population_tw.csv", function(error, data) {
 
   // Convert strings to numbers.
   data.forEach(function(d) {
@@ -133,10 +136,10 @@ d3.csv("population.csv", function(error, data) {
       .attr("y", y)
       .attr("height", function(value) { return height - y(value); });
 
-  // Add labels to show birthyear.
-  birthyear.append("text")
-      .attr("y", height - 4)
-      .text(function(birthyear) { return birthyear; });
+  //// Add labels to show birthyear.
+  //birthyear.append("text")
+  //    .attr("y", height - 4)
+  //    .text(function(birthyear) { return birthyear; });
 
   // Add labels to show age (separate; not animated).
   svg.selectAll(".age")
@@ -176,3 +179,17 @@ d3.csv("population.csv", function(error, data) {
 });
 
 </script>
+
+<p>
+Use arrow key left and right to see the population change.
+</p>
+<p>
+The x-axis is the age while the y-axis is the population.
+The blue color is the population for man and the pink is for woman.
+</p> 
+
+<p>
+Data from <a href='http://www.ris.gov.tw/en/web/ris3-english/home'>Taiwan Department of Household Registration</a>.
+</p>
+
+</body>
